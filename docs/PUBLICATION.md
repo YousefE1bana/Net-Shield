@@ -32,6 +32,10 @@ Publication workstation: Windows, Python 3.14.6. No live capture, attack generat
 
 There is no product frontend build step. The native assets ship in the Python wheel. Raw QA logs, credentials, generated environments, test databases and package artifacts remain private.
 
+## Hosted Windows portability correction
+
+The first hosted run passed all four Linux Python jobs and exposed an environmental dependency in the IPv6/VLAN offline test on Windows: unspecified Ethernet MAC fields caused Scapy to resolve an unavailable local adapter. The fixture now supplies explicit locally administered MAC addresses, asserts their preservation and rejects interface lookup. A local failing-then-passing regression reproduced that boundary. This correction is confined to test inputs; production parsing and detection behavior are preserved. The latest commit's complete hosted results are visible in GitHub Actions.
+
 ## Linux evidence and remaining acceptance
 
 The operator-supplied **Ubuntu 22.04.5 / Python 3.12.15 / nftables 1.0.2** VMware run demonstrated scan detection, a manual finite host block, expiry/removal, management ACLs and privilege boundaries. [Detailed acceptance and attribution](LINUX-ACCEPTANCE.md).

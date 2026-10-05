@@ -11,11 +11,15 @@ def pipeline(tmp_path):
     return Pipeline(Store(settings.database), settings)
 
 
-def test_packet_time_ipv6_vlan_and_transport_are_preserved(tmp_path):
+def test_packet_time_ipv6_vlan_and_transport_are_preserved(tmp_path, monkeypatch):
     from netshield.events import normalize_packet, Origin
 
+    def reject_interface_lookup(*args, **kwargs):
+        raise ValueError("Offline fixture must not resolve a local capture adapter")
+
+    monkeypatch.setattr("scapy.layers.l2.resolve_iface", reject_interface_lookup)
     packet = (
-        Ether()
+        Ether(src="02:00:00:00:77:01", dst="02:00:00:00:77:02")
         / Dot1Q(vlan=7)
         / IPv6(src="fd00::1", dst="fd00::2")
         / TCP(sport=1234, dport=443, flags="S", seq=1)
@@ -26,6 +30,8 @@ def test_packet_time_ipv6_vlan_and_transport_are_preserved(tmp_path):
     assert event.source_ip == "fd00::1"
     assert event.protocol == "TCP"
     assert event.metadata["vlan"] == 7
+    assert event.metadata["source_mac"] == "02:00:00:00:77:01"
+    assert event.metadata["target_mac"] == "02:00:00:00:77:02"
     assert "payload" not in event.metadata
 
 
