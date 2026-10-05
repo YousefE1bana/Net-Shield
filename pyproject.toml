@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools==82.0.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "netshield-ndr"
+version = "2.0.0rc1"
+description = "Local metadata NDR with provenance-isolated replay and manual scoped response"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dynamic = ["dependencies"]
+
+[project.urls]
+Homepage = "https://github.com/YousefE1bana/Net-Shield"
+Documentation = "https://github.com/YousefE1bana/Net-Shield/blob/main/README.md"
+Issues = "https://github.com/YousefE1bana/Net-Shield/issues"
+
+[project.scripts]
+netshield = "netshield.__main__:main"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+include = ["netshield*", "dashboard"]
+
+[tool.setuptools.package-data]
+dashboard = ["templates/*.html", "static/*.svg", "static/brand/*.svg", "static/css/*.css", "static/js/dashboard.js", "static/js/v2-console.mjs", "static/js/ui.mjs", "static/js/login.mjs"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["linux: explicit isolated Linux kernel integration, never run implicitly"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]

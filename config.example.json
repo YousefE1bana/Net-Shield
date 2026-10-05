@@ -1,0 +1,16 @@
+{
+  "data_dir": "data",
+  "host": "127.0.0.1",
+  "port": 8080,
+  "interface": "",
+  "sensor_id": "local",
+  "approved_outbound_ports": [53, 80, 123, 443],
+  "response_enabled": false,
+  "auto_response": false,
+  "response_networks": [],
+  "protected_networks": ["127.0.0.0/8", "::1/128", "169.254.0.0/16", "fe80::/10"],
+  "queue_capacity": 2048,
+  "state_capacity": 4096,
+  "event_retention_days": 7,
+  "evidence_retention_days": 90
+}

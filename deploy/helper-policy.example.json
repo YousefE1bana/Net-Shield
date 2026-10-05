@@ -1,0 +1,7 @@
+{
+  "allowed_networks": ["10.77.0.0/24"],
+  "protected_networks": ["10.77.0.1/32", "10.77.0.10/32", "127.0.0.0/8", "::1/128", "169.254.0.0/16", "fe80::/10"],
+  "client_uid": 99999,
+  "client_gid": 99999,
+  "socket": "/run/netshield/response.sock"
+}

@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="NetShield network detection and investigation console"
+    />
+    <title>Overview · NetShield</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/static/brand/netshield-icon.svg"
+    />
+    <link rel="stylesheet" href="/static/css/dashboard.css?v=4" />
+  </head>
+  <body>
+    <a class="skip-link" href="#workspace">Skip to workspace</a>
+    <aside class="sidebar" aria-label="Application sidebar">
+      <a class="brand" href="#overview" aria-label="NetShield overview"
+        ><img
+          src="/static/brand/netshield-icon.svg"
+          alt=""
+          width="32"
+          height="32"
+        /><span>NetShield<small>Operations console</small></span></a
+      >
+      <nav id="navigation" aria-label="Main navigation">
+        <a href="#overview" data-screen="overview"
+          ><svg><use href="/static/icons.svg#overview" /></svg
+          ><span>Overview</span></a
+        >
+        <p class="nav-group">Investigate</p>
+        <a href="#traffic" data-screen="traffic"
+          ><svg><use href="/static/icons.svg#traffic" /></svg
+          ><span>Traffic</span></a
+        >
+        <a href="#alerts" data-screen="alerts"
+          ><svg><use href="/static/icons.svg#alerts" /></svg><span>Alerts</span
+          ><span class="nav-count" id="nav-alert-count">—</span></a
+        >
+        <a href="#incidents" data-screen="incidents"
+          ><svg><use href="/static/icons.svg#incidents" /></svg
+          ><span>Incidents</span></a
+        >
+        <a href="#assets" data-screen="assets"
+          ><svg><use href="/static/icons.svg#assets" /></svg
+          ><span>Assets</span></a
+        >
+        <p class="nav-group">Operate</p>
+        <a href="#detections" data-screen="detections"
+          ><svg><use href="/static/icons.svg#detections" /></svg
+          ><span>Detections</span></a
+        >
+        <a href="#response" data-screen="response"
+          ><svg><use href="/static/icons.svg#response" /></svg
+          ><span>Response</span></a
+        >
+        <p class="nav-group">Validate</p>
+        <a href="#lab" data-screen="lab"
+          ><svg><use href="/static/icons.svg#lab" /></svg><span>Attack Lab</span
+          ><span class="nav-tag">Replay</span></a
+        >
+        <p class="nav-group">System</p>
+        <a href="#health" data-screen="health"
+          ><svg><use href="/static/icons.svg#health" /></svg
+          ><span>Health</span></a
+        >
+        <a href="#settings" data-screen="settings"
+          ><svg><use href="/static/icons.svg#settings" /></svg
+          ><span>Settings</span></a
+        >
+      </nav>
+      <div class="sidebar-bottom">
+        <span class="dot neutral"></span>Local deployment<small
+          >Network Detection &amp; Response</small
+        >
+      </div>
+    </aside>
+    <div class="app-shell">
+      <header class="command-bar">
+        <button
+          class="icon-button menu-button"
+          id="open-navigation"
+          aria-label="Open navigation"
+        >
+          <svg><use href="/static/icons.svg#menu" /></svg>
+        </button>
+        <form id="global-search" role="search">
+          <svg aria-hidden="true"><use href="/static/icons.svg#search" /></svg
+          ><input
+            id="search-input"
+            type="search"
+            aria-label="Search observed alerts"
+            placeholder="Search alerts, addresses, evidence…"
+            autocomplete="off"
+          /><kbd aria-hidden="true">Ctrl K</kbd>
+        </form>
+        <div class="command-controls">
+          <label class="range-control"
+            ><svg aria-hidden="true"><use href="/static/icons.svg#clock" /></svg
+            ><span class="sr-only">Shared time range</span
+            ><select id="time-range">
+              <option value="900">Last 15 minutes</option>
+              <option value="3600" selected>Last hour</option>
+              <option value="86400">Last 24 hours</option>
+              <option value="all">All retained data</option>
+            </select></label
+          >
+          <label class="mode-control"
+            ><span class="sr-only">Data mode</span
+            ><select id="data-mode">
+              <option value="capture">Live capture</option>
+              <option value="service_event">Service events</option>
+              <option value="replay">Replay</option>
+              <option value="isolated_lab">Isolated lab</option>
+            </select></label
+          >
+          <a href="#health" class="sensor-chip" id="sensor-chip"
+            ><span class="dot neutral"></span><span>Connecting</span></a
+          >
+          <button class="icon-button" id="refresh" aria-label="Refresh data">
+            <svg><use href="/static/icons.svg#refresh" /></svg>
+          </button>
+          <a class="icon-button" href="#alerts" aria-label="Open alerts"
+            ><svg><use href="/static/icons.svg#bell" /></svg
+            ><span
+              id="notification-count"
+              class="notification-count"
+              hidden
+            ></span
+          ></a>
+          <a
+            class="icon-button settings-shortcut"
+            href="#settings"
+            aria-label="Open settings"
+            ><svg><use href="/static/icons.svg#settings" /></svg
+          ></a>
+        </div>
+      </header>
+      <div class="connection-bar" id="connection-bar">
+        <span id="freshness">Connecting to local API…</span
+        ><span
+          >5s refresh <span class="bar-separator">/</span> persisted
+          observations</span
+        >
+      </div>
+      <div class="sr-only" id="status-announcement" role="status"></div>
+      <main id="workspace" tabindex="-1">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow" id="page-eyebrow">Operations / Overview</div>
+            <h1 id="page-title">Network overview</h1>
+            <p id="page-description">
+              Observe activity. Investigate evidence. Know your coverage.
+            </p>
+          </div>
+          <div id="page-actions"></div>
+        </div>
+        <div id="page-content" aria-busy="true">
+          <div class="loading-state">Loading source telemetry…</div>
+        </div>
+      </main>
+      <footer class="workspace-footer">
+        <span
+          >NetShield <span class="footer-divider">/</span> Local
+          operations</span
+        ><a href="#health"
+          >Coverage &amp; limitations
+          <svg><use href="/static/icons.svg#arrow" /></svg
+        ></a>
+      </footer>
+    </div>
+    <dialog
+      id="navigation-dialog"
+      class="navigation-dialog"
+      aria-label="Navigation"
+    >
+      <div class="dialog-heading">
+        <span class="brand-mini"
+          ><img
+            src="/static/brand/netshield-icon.svg"
+            alt=""
+            width="28"
+            height="28"
+          />NetShield</span
+        ><button
+          class="icon-button"
+          data-close-dialog
+          aria-label="Close navigation"
+        >
+          <svg><use href="/static/icons.svg#close" /></svg>
+        </button>
+      </div>
+      <nav id="mobile-navigation" aria-label="Mobile main navigation"></nav>
+    </dialog>
+    <dialog
+      id="detail-dialog"
+      class="detail-dialog"
+      aria-labelledby="detail-title"
+    >
+      <div class="dialog-heading">
+        <span class="eyebrow" id="detail-category">Investigation</span
+        ><button
+          class="icon-button"
+          data-close-dialog
+          aria-label="Close details"
+        >
+          <svg><use href="/static/icons.svg#close" /></svg>
+        </button>
+      </div>
+      <div id="detail-content"></div>
+    </dialog>
+    <dialog
+      id="confirm-dialog"
+      class="confirm-dialog"
+      aria-labelledby="confirm-title"
+    >
+      <div class="dialog-heading">
+        <span class="eyebrow">Lab preflight</span
+        ><button
+          class="icon-button"
+          data-close-dialog
+          aria-label="Close preflight"
+        >
+          <svg><use href="/static/icons.svg#close" /></svg>
+        </button>
+      </div>
+      <div id="confirm-content"></div>
+    </dialog>
+    <noscript
+      ><div class="noscript">
+        JavaScript is required for telemetry and investigation. Capture health
+        cannot be determined here.
+      </div></noscript
+    >
+    <script type="application/json" id="console-context">
+      {{ console_context|tojson }}
+    </script>
+    <script type="module" src="/static/js/dashboard.js?v=4"></script>
+  </body>
+</html>

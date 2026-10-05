@@ -1,0 +1,35 @@
+{
+  "provenance": "Operator-supplied controlled VMware acceptance screenshots, 2026-10-05. Copied byte-for-byte; no new Linux runtime execution by this workstation.",
+  "files": [
+    {
+      "path": "login.png",
+      "sha256": "adfee9b38e6054c132bd2bfe0adf11b50efaed6abcac22e73a00f7f10461e13b",
+      "bytes": 32039
+    },
+    {
+      "path": "live-overview.png",
+      "sha256": "db8f6dc7dc96b8e13434023decb16575273221a76ec33aae28c5f395965a8225",
+      "bytes": 123013
+    },
+    {
+      "path": "scan-detection.png",
+      "sha256": "b7afce1c649cc21796dd2df983fe7e41cd72a100414cac334392ae988b30c292",
+      "bytes": 490668
+    },
+    {
+      "path": "ping-enforcement.png",
+      "sha256": "84bc921e18fb31cc5d3f457419a3c39aaf74f42326122812f6e9d9f979591bcd",
+      "bytes": 657236
+    },
+    {
+      "path": "response-applied.png",
+      "sha256": "7fdfe8e93f310f2177d144212490f08d6da8c103ce04a90a9f322195c0d1e5c1",
+      "bytes": 103553
+    },
+    {
+      "path": "response-removed.png",
+      "sha256": "30c056794c76922ec2277ca0ecf0e25475a78ee90fdffae9fe2f2aee6414bdc5",
+      "bytes": 104488
+    }
+  ]
+}

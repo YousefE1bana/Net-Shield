@@ -1,0 +1,18 @@
+[Unit]
+Description=NetShield health/TTL reconciliation and retention
+
+[Service]
+Type=oneshot
+User=netshield
+Group=netshield
+WorkingDirectory=/var/lib/netshield
+ExecStart=/opt/netshield/venv/bin/python -I -m netshield --config /etc/netshield/config.json maintenance --prune
+UMask=0077
+NoNewPrivileges=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/netshield
+RestrictAddressFamilies=AF_UNIX AF_NETLINK

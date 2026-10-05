@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-10-04T19:06:12Z",
+  "python": "3.14.6",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "cpu": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+  "phases": [
+    {
+      "phase": "Scapy decode + normalization",
+      "items": 2000,
+      "wall_seconds": 0.9918867999986105,
+      "process_cpu_seconds": 0.984375,
+      "items_per_second": 2016.3591248545717,
+      "python_peak_traced_bytes": 426123
+    },
+    {
+      "phase": "Rule evaluation (benign ACK observations)",
+      "items": 2000,
+      "wall_seconds": 0.04729569999835803,
+      "process_cpu_seconds": 0.046875,
+      "items_per_second": 42287.14238439085,
+      "python_peak_traced_bytes": 1422
+    },
+    {
+      "phase": "Rule state pressure (distinct initial connections)",
+      "items": 2000,
+      "wall_seconds": 0.20621480000045267,
+      "process_cpu_seconds": 0.203125,
+      "items_per_second": 9698.624928936282,
+      "python_peak_traced_bytes": 5017224
+    },
+    {
+      "phase": "Pipeline + transactional SQLite persistence",
+      "items": 500,
+      "wall_seconds": 9.946430899999541,
+      "process_cpu_seconds": 3.171875,
+      "items_per_second": 50.2692880518602,
+      "python_peak_traced_bytes": 369735
+    },
+    {
+      "phase": "Pipeline + SQLite, consumer-sized batches",
+      "items": 16,
+      "wall_seconds": 1.1826672999995935,
+      "process_cpu_seconds": 0.890625,
+      "items_per_second": 13.528741345943613,
+      "python_peak_traced_bytes": 382194,
+      "packets": 500,
+      "packets_per_second": 422.77316706073793,
+      "maximum_batch_packets": 32
+    }
+  ],
+  "api_in_process": {
+    "flows?origin=replay&limit=50": {
+      "samples": 20,
+      "median_ms": 5.456400000184658,
+      "p95_ms": 7.387699999526376
+    },
+    "overview?origin=replay": {
+      "samples": 20,
+      "median_ms": 6.521999999677064,
+      "p95_ms": 7.789899998897454
+    },
+    "alerts?origin=replay&limit=50": {
+      "samples": 20,
+      "median_ms": 3.553250000550179,
+      "p95_ms": 3.907299998900271
+    }
+  },
+  "database_plus_wal_bytes_after_500_packets": 1703936,
+  "bounds": {
+    "rule_keys": 4096,
+    "window_samples": 512,
+    "raw_queue": 2048,
+    "metadata_record_bytes": 262144
+  },
+  "state_pressure": {
+    "keys": 4096,
+    "syn_fingerprints": 2000,
+    "evictions": 1905
+  },
+  "queue_pressure": {
+    "offered": 260,
+    "retained": 128,
+    "overflow": 132,
+    "capacity": 128
+  },
+  "limitations": [
+    "Offline decoded/generated traffic only; these are not live capture PPS or packet-loss claims.",
+    "tracemalloc records Python allocation peaks, not complete process RSS or native allocator use.",
+    "API uses authenticated Flask test client; excludes TCP/TLS/proxy/Waitress network overhead.",
+    "Single local execution under current workstation load; no sustained appliance throughput certification."
+  ]
+}

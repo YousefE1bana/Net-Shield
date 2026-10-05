@@ -1,0 +1,27 @@
+[Unit]
+Description=NetShield narrow owned nftables helper (explicit opt-in)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/opt/netshield/venv/bin/python -I -m netshield helper /etc/netshield/helper-policy.json
+Restart=on-failure
+UMask=0077
+NoNewPrivileges=true
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_CHOWN
+AmbientCapabilities=
+RuntimeDirectory=netshield
+RuntimeDirectoryMode=0750
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/run/netshield
+RestrictAddressFamilies=AF_UNIX AF_NETLINK
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+[Install]
+WantedBy=multi-user.target

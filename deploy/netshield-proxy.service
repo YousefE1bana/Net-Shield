@@ -1,0 +1,31 @@
+# NetShield dedicated proxy; existing nginx.service/sites remain untouched.
+[Unit]
+Description=NetShield management TLS proxy
+After=network.target netshield-web.service
+Requires=netshield-web.service
+
+[Service]
+Type=simple
+ExecStartPre=/usr/sbin/nginx -t -c /etc/netshield/nginx.conf
+ExecStart=/usr/sbin/nginx -c /etc/netshield/nginx.conf -g "daemon off;"
+ExecReload=/usr/sbin/nginx -t -c /etc/netshield/nginx.conf
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RuntimeDirectory=netshield-proxy
+RuntimeDirectoryMode=0750
+UMask=0077
+NoNewPrivileges=true
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_SETUID CAP_SETGID CAP_CHOWN
+AmbientCapabilities=
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/run/netshield-proxy
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

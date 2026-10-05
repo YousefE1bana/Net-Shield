@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "scope": "offline replay; no network/firewall calls",
+  "run_id": "5903caf4-875a-42d5-99b1-b25cd1e99bf3",
+  "incident_id": "92d0839a-835c-44ee-81c1-423404c1eec5",
+  "packets": 18,
+  "observed_rules": [
+    "NS-RECON-ENUM",
+    "NS-RECON-VERTICAL"
+  ],
+  "response": "REMOVED / not_enforced",
+  "report": ".workbench\\final-demo-artifacts\\flagship-replay.pdf"
+}

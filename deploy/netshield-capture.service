@@ -1,0 +1,26 @@
+[Unit]
+Description=NetShield observe-only packet sensor
+After=network.target
+
+[Service]
+Type=simple
+User=netshield
+Group=netshield
+WorkingDirectory=/var/lib/netshield
+ExecStart=/opt/netshield/venv/bin/python -I -m netshield --config /etc/netshield/config.json capture
+Restart=on-failure
+UMask=0077
+NoNewPrivileges=true
+AmbientCapabilities=CAP_NET_RAW
+CapabilityBoundingSet=CAP_NET_RAW
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/netshield
+RestrictAddressFamilies=AF_PACKET AF_INET AF_INET6 AF_NETLINK AF_UNIX
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+[Install]
+WantedBy=multi-user.target

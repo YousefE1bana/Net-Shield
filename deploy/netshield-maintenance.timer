@@ -1,0 +1,11 @@
+[Unit]
+Description=NetShield periodic bounded maintenance
+
+[Timer]
+OnBootSec=30
+OnUnitActiveSec=60
+AccuracySec=5
+Persistent=true
+
+[Install]
+WantedBy=timers.target
